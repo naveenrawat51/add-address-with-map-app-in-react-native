@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Platform, View, Text, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import CustomHeaderButton from "../components/UI/CustomHeaderButton";
 import PlaceItem from "../components/PlaceItem";
 
+import * as PlacesAction from "../store/actions/places.action";
+
 export default function PlacesList({ navigation }) {
+  const dispatch = useDispatch();
   const AllPlaces = useSelector((state) => state.places.places);
+
+  useEffect(() => {
+    dispatch(PlacesAction.loadPlaces());
+  }, [dispatch]);
 
   const displayPlaces = (itemData) => {
     return (
@@ -22,6 +29,7 @@ export default function PlacesList({ navigation }) {
       />
     );
   };
+
   return (
     <FlatList
       data={AllPlaces}
