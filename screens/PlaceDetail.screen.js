@@ -9,4 +9,10 @@ export default function PlaceDetail({ navigation }) {
   );
 }
 
+PlaceDetail.navigationOptions = ({ navigation }) => {
+  return {
+    headerTitle: navigation.getParam("title"),
+  };
+};
+
 const styles = StyleSheet.create({});
