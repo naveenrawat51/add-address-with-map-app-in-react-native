@@ -9,7 +9,7 @@ export default function PlacesReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_PLACE:
       const newplace = new Place(
-        new Date().toString(),
+        action.id.toString(),
         action.title,
         action.newPath
       );
