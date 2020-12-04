@@ -14,7 +14,7 @@ import Colors from "../constants/Colors";
 const PlacesNavigator = createStackNavigator(
   {
     Places: PlaceListScreen,
-    PlaceDetails: PlaceDetailScreen,
+    PlaceDetail: PlaceDetailScreen,
     NewPlace: NewPlaceScreen,
     Map: MapScreen,
   },

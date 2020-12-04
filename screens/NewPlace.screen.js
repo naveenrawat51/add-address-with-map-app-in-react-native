@@ -6,19 +6,27 @@ import {
   ScrollView,
   TextInput,
   Button,
+  ActivityIndicator,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
+
+import ImgPicker from "../components/ImagePicker";
 
 import * as PlacesActions from "../store/actions/places.action";
 
 export default function NewPlace({ navigation }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
+  const [selectedImage, setSelectedImage] = useState();
 
   const savePlaceHandler = () => {
-    dispatch(PlacesActions.addPlace(title));
+    dispatch(PlacesActions.addPlace(title, selectedImage));
     navigation.goBack();
+  };
+
+  const onImageTakenHandler = (imagePath) => {
+    setSelectedImage(imagePath);
   };
 
   return (
@@ -31,6 +39,7 @@ export default function NewPlace({ navigation }) {
           style={styles.textInput}
           onChangeText={(text) => setTitle(text)}
         />
+        <ImgPicker onImageTaken={onImageTakenHandler} />
         <Button
           title="Save Place"
           color={Colors.primary}

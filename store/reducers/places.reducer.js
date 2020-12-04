@@ -8,7 +8,11 @@ const initialState = {
 export default function PlacesReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_PLACE:
-      const newplace = new Place(new Date().toString(), action.title);
+      const newplace = new Place(
+        new Date().toString(),
+        action.title,
+        action.newPath
+      );
       return {
         places: state.places.concat(newplace),
       };
