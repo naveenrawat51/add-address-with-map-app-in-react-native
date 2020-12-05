@@ -14,7 +14,7 @@ import { verifyPermissions } from "./utils/camera.util";
 
 import MapPreview from "./MapPreview";
 
-export default function LocationPicker() {
+export default function LocationPicker({ navigation }) {
   const [isFetching, setIsFetching] = useState(false);
   const [pickedLocation, setPickedLocation] = useState({});
 
@@ -47,9 +47,17 @@ export default function LocationPicker() {
     setIsFetching(false);
   };
 
+  const getLocationFromMapHandler = () => {
+    navigation.navigate("Map");
+  };
+
   return (
     <View style={styles.locationPicker}>
-      <MapPreview lat={pickedLocation.lat} lng={pickedLocation.lng}>
+      <MapPreview
+        lat={pickedLocation.lat}
+        lng={pickedLocation.lng}
+        onPressHandler={getLocationFromMapHandler}
+      >
         <View style={styles.mapPreview}>
           {isFetching ? (
             <ActivityIndicator size="large" color={Colors.primary} />
@@ -58,11 +66,16 @@ export default function LocationPicker() {
           )}
         </View>
       </MapPreview>
-      <View style={{ marginTop: 20 }}>
+      <View style={styles.action}>
         <Button
           title="Get User Location"
           color={Colors.primary}
           onPress={getLocationHandler}
+        />
+        <Button
+          title="Location From Map"
+          color={Colors.primary}
+          onPress={getLocationFromMapHandler}
         />
       </View>
     </View>
@@ -81,5 +94,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  action: {
+    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
