@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
 
 import ImgPicker from "../components/ImagePicker";
+import LocationPicker from "../components/LocationPicker";
 
 import * as PlacesActions from "../store/actions/places.action";
 
@@ -40,6 +41,7 @@ export default function NewPlace({ navigation }) {
           onChangeText={(text) => setTitle(text)}
         />
         <ImgPicker onImageTaken={onImageTakenHandler} />
+        <LocationPicker />
         <Button
           title="Save Place"
           color={Colors.primary}
