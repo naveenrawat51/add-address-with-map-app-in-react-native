@@ -41,7 +41,7 @@ export default function NewPlace({ navigation }) {
           onChangeText={(text) => setTitle(text)}
         />
         <ImgPicker onImageTaken={onImageTakenHandler} />
-        <LocationPicker />
+        <LocationPicker navigation={navigation} />
         <Button
           title="Save Place"
           color={Colors.primary}
