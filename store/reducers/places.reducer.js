@@ -11,7 +11,10 @@ export default function PlacesReducer(state = initialState, action) {
       const newplace = new Place(
         action.id.toString(),
         action.title,
-        action.newPath
+        action.newPath,
+        action.address,
+        action.coords.lat,
+        action.coords.lng
       );
       return {
         places: state.places.concat(newplace),
@@ -19,7 +22,15 @@ export default function PlacesReducer(state = initialState, action) {
     case SET_PLACES:
       return {
         places: action.places.map(
-          (place) => new Place(place.id.toString(), place.title, place.imageUri)
+          (place) =>
+            new Place(
+              place.id.toString(),
+              place.title,
+              place.imageUri,
+              place.address,
+              place.lat,
+              place.lng
+            )
         ),
       };
   }

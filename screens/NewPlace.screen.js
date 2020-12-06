@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -20,15 +20,20 @@ export default function NewPlace({ navigation }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [selectedImage, setSelectedImage] = useState();
+  const [selectedLocation, setSelectedLocation] = useState();
 
   const savePlaceHandler = () => {
-    dispatch(PlacesActions.addPlace(title, selectedImage));
+    dispatch(PlacesActions.addPlace(title, selectedImage, selectedLocation));
     navigation.goBack();
   };
 
   const onImageTakenHandler = (imagePath) => {
     setSelectedImage(imagePath);
   };
+
+  const locationPickedHandler = useCallback((location) => {
+    setSelectedLocation(location);
+  }, []);
 
   return (
     <ScrollView>
@@ -41,7 +46,10 @@ export default function NewPlace({ navigation }) {
           onChangeText={(text) => setTitle(text)}
         />
         <ImgPicker onImageTaken={onImageTakenHandler} />
-        <LocationPicker navigation={navigation} />
+        <LocationPicker
+          navigation={navigation}
+          onLocationPicked={locationPickedHandler}
+        />
         <Button
           title="Save Place"
           color={Colors.primary}
