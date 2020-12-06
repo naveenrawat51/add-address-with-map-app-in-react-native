@@ -21,7 +21,7 @@ export default function PlacesList({ navigation }) {
     return (
       <PlaceItem
         {...itemData.item}
-        address={null}
+        address={itemData.item.address}
         onSelect={() => {
           navigation.navigate("PlaceDetail", { ...itemData.item });
         }}

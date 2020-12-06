@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Button,
@@ -14,9 +14,20 @@ import { verifyPermissions } from "./utils/camera.util";
 
 import MapPreview from "./MapPreview";
 
-export default function LocationPicker({ navigation }) {
+export default function LocationPicker({ navigation, onLocationPicked }) {
   const [isFetching, setIsFetching] = useState(false);
   const [pickedLocation, setPickedLocation] = useState({});
+
+  const mapPickedLocation = navigation.getParam("selectedLocation");
+
+  useEffect(() => {
+    if (mapPickedLocation) {
+      const lat = mapPickedLocation.latitude;
+      const lng = mapPickedLocation.longitude;
+      setPickedLocation({ lat, lng });
+      onLocationPicked({ lat, lng });
+    }
+  }, [mapPickedLocation, onLocationPicked]);
 
   const getLocationHandler = async () => {
     const hasPermissions = await verifyPermissions(["LOCATION"]);
@@ -35,6 +46,7 @@ export default function LocationPicker({ navigation }) {
         lat,
         lng,
       });
+      onLocationPicked({ lat, lng });
     } catch (err) {
       console.log(err);
       Alert.alert(
